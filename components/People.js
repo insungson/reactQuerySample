@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useQuery} from 'react-query';
+import {useQuery, useMutation} from 'react-query';
 import Person from './Person';
 
 const fetchPeople = async (key, page) => {
@@ -9,7 +9,10 @@ const fetchPeople = async (key, page) => {
 
 const People = () => {
   const [page, setPage] = useState(1);
-  const {data, status} = useQuery(['people', page], fetchPeople);
+  const {data, status} = useQuery(['people', page], fetchPeople, {
+    onSuccess: () => console.log('성공!'),
+    onError: (e) => console.log('실패',e)
+  });
 
 
   return (
