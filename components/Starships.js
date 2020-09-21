@@ -22,6 +22,8 @@ const Starships = () => {
     }
   });
 
+  //*** 개발자모드에서 주황색이 stale 데이터이고 그 아래가 inactive 데이터이다.
+  //    useMutation은 stale 데이터로 올라갈수가 없다. 그냥 inactive 상태로 캐싱된다!
   const [mutate, info] = useMutation(updateStarships, {
     //*** onSuccess 콜백은 쉽게 데이터를 업뎃할 수 있지만.. 속도는 느리다
     xonSuccess: (data) => {  //mutation을 통해 post, update, delete 요청하고 성공시 응답을 data로 받는다
@@ -52,7 +54,8 @@ const Starships = () => {
         console.log('test', prev)
         prev
       });
-      return current; // 현재의 캐시 리턴해준다 (위에서 setQueryData() 를 통해 key값과 연결하여 햔재값을 리턴한다)
+      return current; 
+      // 현재의 캐시 리턴해준다 (위에서 setQueryData() 를 통해 key값과 연결하여 햔재값을 리턴한다)
     },
     onError: (error, newData, rollback) => rollback(),  //위의 onMutate()에서 잘못될때를 대비하여
     onSettled: () => queryCache.refetchQueries('starships1') 
