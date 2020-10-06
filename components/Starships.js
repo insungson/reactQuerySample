@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, queryCache } from 'react-query';
 import Starship from './Starship';
+import axios from 'axios';
 
 const fetchStarships = async (key, page) => {
   console.log('page: ', page);
@@ -10,6 +11,7 @@ const fetchStarships = async (key, page) => {
 
 const updateStarships = async (page) => { //서버로 post, update, delete 방식으로 요청(여기선 그냥..변형해서사용)
   console.log('page111', page);
+  // const res = await axios.post('https://swapi.dev/api/starships/', page);
   const res = await fetch(`https://swapi.dev/api/starships/?${page}`);
   return res.json();
 };
